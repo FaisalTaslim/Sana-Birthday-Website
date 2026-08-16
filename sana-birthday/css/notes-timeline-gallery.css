@@ -1,0 +1,261 @@
+/* ============================================================
+   notes-timeline-gallery.css
+   ============================================================ */
+
+/* ---- Notes I Never Said — pinboard, the signature element ---- */
+.notes-section { background: var(--color-bg-soft); }
+
+.pinboard {
+  position: relative;
+  margin-top: var(--space-md);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: var(--space-md) var(--space-lg);
+  padding-block: var(--space-sm);
+}
+
+.note-card {
+  position: relative;
+  background: var(--color-paper);
+  color: #2B2721;
+  border-radius: 3px;
+  padding: var(--space-md) var(--space-sm) var(--space-sm);
+  min-height: 150px;
+  box-shadow: var(--shadow-paper);
+  cursor: pointer;
+  transform: rotate(var(--tilt, -2deg));
+  transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast);
+  display: flex;
+  align-items: center;
+}
+
+.note-card:nth-child(2n) { --tilt: 1.6deg; }
+.note-card:nth-child(3n) { --tilt: -1.1deg; }
+.note-card:nth-child(4n) { --tilt: 2.2deg; }
+.note-card:nth-child(5n) { --tilt: -2.6deg; }
+.note-card:nth-child(6n) { --tilt: 0.8deg; }
+.note-card:nth-child(7n) { --tilt: -1.8deg; }
+
+.note-card:hover,
+.note-card:focus-visible {
+  transform: rotate(0deg) translateY(-6px) scale(1.03);
+  box-shadow: 0 16px 34px rgba(0,0,0,0.4);
+  z-index: 5;
+}
+
+.note-card::before {
+  content: "";
+  position: absolute;
+  top: -9px; left: 50%;
+  transform: translateX(-50%) rotate(var(--pin-rot, -8deg));
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 30%, var(--color-coral-soft), var(--color-coral) 75%);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+}
+.note-card:nth-child(3n)::before { background: radial-gradient(circle at 32% 30%, var(--color-amber-soft), var(--color-amber) 75%); }
+
+.note-card__index {
+  position: absolute;
+  bottom: 8px;
+  right: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: #a89b7c;
+}
+
+.note-card__text {
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  line-height: 1.42;
+}
+
+/* ---- Timeline ---- */
+.timeline {
+  margin-top: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-lg);
+  align-items: center;
+}
+
+.timeline-item:nth-child(2n) .timeline-item__media { order: 2; }
+
+.timeline-item__media {
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--color-border);
+}
+
+.timeline-item__label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-amber-soft);
+  margin-bottom: var(--space-2xs);
+  display: block;
+}
+
+.timeline-item__title {
+  font-size: var(--fs-lg);
+  margin-bottom: var(--space-2xs);
+}
+
+.timeline-item__caption {
+  color: var(--color-text-muted);
+  max-width: 40ch;
+}
+
+@media (max-width: 760px) {
+  .timeline-item,
+  .timeline-item:nth-child(2n) {
+    grid-template-columns: 1fr;
+  }
+  .timeline-item:nth-child(2n) .timeline-item__media { order: 0; }
+}
+
+/* ---- Photo frame placeholder (shared by timeline + gallery) ---- */
+.photo-frame {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background:
+    repeating-linear-gradient(135deg, rgba(242,239,234,0.035) 0 2px, transparent 2px 14px),
+    linear-gradient(160deg, #2A363C, #1A2327);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+}
+
+.photo-frame__placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xs);
+  color: var(--color-text-faint);
+  text-align: center;
+  padding: var(--space-sm);
+}
+
+.photo-frame__icon {
+  width: 34px; height: 34px;
+  border: 1.5px solid currentColor;
+  border-radius: 7px;
+  position: relative;
+  opacity: 0.6;
+}
+.photo-frame__icon::before {
+  content: "";
+  position: absolute;
+  left: 6px; bottom: 6px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+}
+.photo-frame__icon::after {
+  content: "";
+  position: absolute;
+  right: 5px; bottom: 5px;
+  width: 12px; height: 9px;
+  border-top: 1.5px solid currentColor;
+  border-right: 1.5px solid currentColor;
+  transform: skewX(-20deg);
+}
+
+.photo-frame__filename {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  opacity: 0.85;
+}
+
+/* ---- Gallery ---- */
+.gallery-grid {
+  margin-top: var(--space-md);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm);
+}
+
+.gallery-grid .photo-frame {
+  aspect-ratio: 1;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease-out);
+  border: 1px solid var(--color-border);
+}
+.gallery-grid .photo-frame:hover { transform: scale(1.02); }
+.gallery-grid .photo-frame:nth-child(3n+2) { margin-top: var(--space-md); }
+
+@media (max-width: 640px) {
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery-grid .photo-frame:nth-child(3n+2) { margin-top: 0; }
+}
+
+/* ---- Lightbox ---- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(10, 14, 16, 0.92);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--dur-fast) var(--ease-out);
+  padding: var(--space-md);
+}
+.lightbox.is-open { opacity: 1; pointer-events: auto; }
+
+.lightbox__frame {
+  width: min(560px, 100%);
+  aspect-ratio: 4/3;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  transform: scale(0.94);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.lightbox.is-open .lightbox__frame { transform: scale(1); }
+
+.lightbox__close {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text);
+  font-size: 1.2rem;
+}
+.lightbox__caption {
+  position: absolute;
+  bottom: var(--space-lg);
+  left: 0; right: 0;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--color-text-muted);
+}

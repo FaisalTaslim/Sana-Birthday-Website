@@ -1,0 +1,182 @@
+/* ============================================================
+   envelope.css — the "open when ready" letter interaction
+   ============================================================ */
+
+.letter-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.envelope-wrap {
+  perspective: 1600px;
+  width: min(420px, 84vw);
+  margin-top: var(--space-md);
+}
+
+.envelope {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10.5;
+  cursor: pointer;
+  transform-style: preserve-3d;
+}
+
+.envelope__body {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(155deg, #263136, #1B242A);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.envelope__body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(200deg, rgba(232,168,76,0.08), transparent 55%);
+}
+
+.envelope__seal {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--color-coral-soft), var(--color-coral) 70%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: rgba(0,0,0,0.55);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+  transition: transform var(--dur-fast) var(--ease-out);
+  z-index: 3;
+}
+
+.envelope__flap {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 60%;
+  background: linear-gradient(155deg, #2C383E, #1F292F);
+  clip-path: polygon(0 0, 100% 0, 50% 82%);
+  transform-origin: top center;
+  transition: transform var(--dur-med) var(--ease-inout);
+  z-index: 2;
+  border-bottom: 1px solid rgba(0,0,0,0.25);
+}
+
+.envelope-wrap:hover .envelope__seal {
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.envelope.is-open .envelope__flap {
+  transform: rotateX(180deg);
+  z-index: 0;
+}
+.envelope.is-open .envelope__seal {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.6);
+}
+
+.envelope__note {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  bottom: 6%;
+  top: 14%;
+  background: var(--color-paper);
+  border-radius: 4px 4px 2px 2px;
+  transform: translateY(6%);
+  transition: transform var(--dur-med) var(--ease-inout) 80ms;
+  box-shadow: 0 -4px 16px rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.envelope.is-open .envelope__note {
+  transform: translateY(-16%);
+}
+
+.envelope__note-label {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7d7362;
+}
+
+.envelope-hint {
+  margin-top: var(--space-sm);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+/* ---- The revealed letter modal-ish panel ---- */
+.letter-panel {
+  margin-top: var(--space-lg);
+  max-width: var(--content-narrow);
+  width: 100%;
+  background: var(--color-paper);
+  color: #2B2721;
+  border-radius: var(--radius-md);
+  padding: clamp(1.75rem, 5vw, 3.5rem);
+  text-align: left;
+  box-shadow: var(--shadow-paper);
+  position: relative;
+  transform: translateY(24px) scale(0.98);
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity var(--dur-med) var(--ease-out),
+              transform var(--dur-med) var(--ease-out);
+}
+
+.letter-panel.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  max-height: none;
+  overflow: visible;
+  margin-top: var(--space-lg);
+}
+
+.letter-panel[hidden] { display: none; }
+
+.letter-panel__date {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8a7f68;
+  margin-bottom: var(--space-md);
+  display: block;
+}
+
+.letter-panel p {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.3vw + 0.7rem, 1.35rem);
+  line-height: 1.55;
+  margin-bottom: 1.1em;
+  color: #322D25;
+}
+
+.letter-panel p:last-of-type { margin-bottom: 0; }
+
+.letter-panel__signoff {
+  display: block;
+  margin-top: var(--space-md);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: #322D25;
+}

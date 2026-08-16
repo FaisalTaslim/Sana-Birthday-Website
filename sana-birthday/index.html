@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday, Sana</title>
+<meta name="description" content="A small website, for one specific person.">
+
+<!-- Fonts: Fraunces (display/warmth), Sora (body), IBM Plex Mono (labels/utility) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Sora:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/nav-hero.css">
+<link rel="stylesheet" href="css/envelope.css">
+<link rel="stylesheet" href="css/notes-timeline-gallery.css">
+<link rel="stylesheet" href="css/cake-guestbook-footer.css">
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="siteNav">
+  <a href="#home" class="nav__brand"><span class="nav__brand-flame"></span> For Sana</a>
+  <ul class="nav__links" id="navLinks">
+    <li><a href="#home" data-nav>Home</a></li>
+    <li><a href="#letter" data-nav>Letter</a></li>
+    <li><a href="#notes" data-nav>Notes</a></li>
+    <li><a href="#memories" data-nav>Memories</a></li>
+    <li><a href="#gallery" data-nav>Gallery</a></li>
+    <li><a href="#wish" data-nav>Wish</a></li>
+    <li><a href="#guestbook" data-nav>Guestbook</a></li>
+  </ul>
+  <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero" id="home">
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="embers" id="embers" aria-hidden="true"></div>
+
+  <p class="hero__eyebrow" id="heroEyebrow"></p>
+
+  <h1 class="hero__headline">
+    <span class="line1" id="heroLine1"></span>
+    <span class="line2" id="heroLine2"></span>
+  </h1>
+
+  <p class="hero__subline" id="heroSubline"></p>
+
+  <div class="countdown" id="countdown" aria-live="polite">
+    <div class="countdown__unit"><span class="countdown__num" id="cdDays">00</span><span class="countdown__label">Days</span></div>
+    <div class="countdown__unit"><span class="countdown__num" id="cdHours">00</span><span class="countdown__label">Hours</span></div>
+    <div class="countdown__unit"><span class="countdown__num" id="cdMins">00</span><span class="countdown__label">Mins</span></div>
+    <div class="countdown__unit"><span class="countdown__num" id="cdSecs">00</span><span class="countdown__label">Secs</span></div>
+  </div>
+
+  <a href="#letter" class="hero__scrollcue" id="scrollCue">scroll</a>
+</header>
+
+<!-- ============ LETTER / ENVELOPE ============ -->
+<section class="letter-section" id="letter">
+  <div class="wrap wrap--narrow">
+    <p class="eyebrow" data-reveal>The letter</p>
+    <h2 class="section-heading" data-reveal>Something I'd normally never send as a text.</h2>
+  </div>
+
+  <div class="envelope-wrap" data-reveal>
+    <div class="envelope" id="envelope" tabindex="0" role="button" aria-expanded="false" aria-label="Open the letter">
+      <div class="envelope__note">
+        <span class="envelope__note-label" id="envelopeLabel">Open when ready</span>
+      </div>
+      <div class="envelope__flap"></div>
+      <div class="envelope__body"></div>
+      <div class="envelope__seal">S</div>
+    </div>
+  </div>
+  <p class="envelope-hint">tap the envelope</p>
+
+  <div class="letter-panel" id="letterPanel" hidden>
+    <span class="letter-panel__date" id="letterDate"></span>
+    <div id="letterBody"></div>
+    <span class="letter-panel__signoff" id="letterSignoff"></span>
+  </div>
+</section>
+
+<!-- ============ NOTES PINBOARD ============ -->
+<section class="notes-section" id="notes">
+  <div class="wrap">
+    <p class="eyebrow" data-reveal>Things I never said out loud</p>
+    <h2 class="section-heading" data-reveal>The notes board</h2>
+    <p class="section-sub" data-reveal>Small, specific, undramatic. The kind of stuff that never quite makes it into a conversation — so it's here instead.</p>
+    <div class="pinboard" id="pinboard"></div>
+  </div>
+</section>
+
+<!-- ============ TIMELINE ============ -->
+<section id="memories">
+  <div class="wrap">
+    <p class="eyebrow" data-reveal>A rough timeline</p>
+    <h2 class="section-heading" data-reveal>Memory lane</h2>
+    <p class="section-sub" data-reveal>Placeholders for now — swap in real photos and captions from data.js whenever you're ready.</p>
+    <div class="timeline" id="timeline"></div>
+  </div>
+</section>
+
+<!-- ============ GALLERY ============ -->
+<section id="gallery">
+  <div class="wrap">
+    <p class="eyebrow" data-reveal>A few frames</p>
+    <h2 class="section-heading" data-reveal>Gallery</h2>
+    <p class="section-sub" data-reveal>Drop image files into <code>assets/images/</code> — the site picks them up automatically.</p>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+</section>
+
+<!-- ============ CAKE / WISH ============ -->
+<section class="wish-section" id="wish">
+  <p class="eyebrow" data-reveal>One more thing</p>
+  <h2 class="section-heading" data-reveal id="cakePrompt">Blow out the candles.</h2>
+  <p class="section-sub" data-reveal>Click each flame.</p>
+
+  <div class="cake" data-reveal>
+    <div class="candles" id="candles"></div>
+    <div class="cake__body">
+      <div class="cake__tier cake__tier--top"><div class="cake__drip"></div></div>
+      <div class="cake__tier cake__tier--bottom"></div>
+    </div>
+  </div>
+
+  <p class="wish-prompt" id="wishPrompt">0 / 5 candles out</p>
+  <p class="wish-message" id="wishMessage"></p>
+</section>
+
+<!-- ============ GUESTBOOK ============ -->
+<section class="guestbook-section" id="guestbook">
+  <div class="wrap">
+    <p class="eyebrow" data-reveal>For anyone else reading this</p>
+    <h2 class="section-heading" data-reveal id="guestbookPrompt">Leave Sana a birthday note</h2>
+    <p class="section-sub" data-reveal>Saved right in this browser — share the page and family/friends can leave their own.</p>
+
+    <div class="guestbook" data-reveal>
+      <form class="guestbook-form" id="guestbookForm">
+        <div class="field">
+          <label for="gbName">Your name</label>
+          <input type="text" id="gbName" maxlength="40" required placeholder="e.g. Mum">
+        </div>
+        <div class="field">
+          <label for="gbMsg">Your note</label>
+          <textarea id="gbMsg" rows="3" maxlength="240" required placeholder="Type something nice..."></textarea>
+        </div>
+        <button type="submit" class="btn">Add note</button>
+      </form>
+
+      <div class="guestbook-list" id="guestbookList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <p class="site-footer__signature" id="footerSignature"></p>
+  <p class="site-footer__line" id="footerLine"></p>
+</footer>
+
+<!-- Sound toggle -->
+<button class="sound-toggle" id="soundToggle" aria-label="Play a little tune" title="Play a little tune">
+  <svg id="soundIconOn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+    <path d="M4 9v6h4l5 5V4L8 9H4z"/><path d="M16 8a5 5 0 0 1 0 8"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/>
+  </svg>
+</button>
+
+<canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="lightbox__close" id="lightboxClose" aria-label="Close">&times;</button>
+  <div class="lightbox__frame" id="lightboxFrame"></div>
+  <p class="lightbox__caption" id="lightboxCaption"></p>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
